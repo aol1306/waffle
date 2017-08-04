@@ -11,7 +11,7 @@ def try_connect_and_handle():
     # connect to remote server
     # on success: pass execution to handler
     pass
-        
+    
 def main_loop():
     print("Enter main loop")
     while True:

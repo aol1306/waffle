@@ -27,24 +27,24 @@ def recvall(sock, count):
     return buf
 
 class Connection:
-    def __init__(this, sock):
-        this.sock = sock
+    def __init__(self, sock):
+        self.sock = sock
 
-    def send_one_string_message(this, str):
-        this.send_one_message(str.encode("utf-8"))
+    def send_one_string_message(self, str):
+        self.send_one_message(str.encode("utf-8"))
         
-    def recv_one_string_message(this):
-        return this.recv_one_message().decode("utf-8")
+    def recv_one_string_message(self):
+        return self.recv_one_message().decode("utf-8")
         
-    def send_one_message(this, data):
+    def send_one_message(self, data):
         length = len(data)
-        this.sock.sendall(struct.pack('!I', length))
-        this.sock.sendall(data)
+        self.sock.sendall(struct.pack('!I', length))
+        self.sock.sendall(data)
         
-    def recv_one_message(this):
-        lengthbuf = recvall(this.sock, 4)
+    def recv_one_message(self):
+        lengthbuf = recvall(self.sock, 4)
         length, = struct.unpack('!I', lengthbuf)
-        return recvall(this.sock, length)
+        return recvall(self.sock, length)
         
-    def close(this):
-        this.sock.close()
+    def close(self):
+        self.sock.close()

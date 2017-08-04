@@ -11,14 +11,17 @@ def init():
         window_hide.hide_console_window()
         
 def try_connect_and_handle():
-    conn = connection.make_client_connection()
-    ClientHandler.ClientHandler(conn)
+    try:
+        conn = connection.make_client_connection()
+        ClientHandler.ClientHandler(conn)
+    except ConnectionRefusedError:
+        print("Connection error. Retrying soon.")
     
 def main_loop():
     print("Enter main loop")
     while True:
         try_connect_and_handle()
-        time.sleep(5)
+        time.sleep(3)
         
 def main():
     init()

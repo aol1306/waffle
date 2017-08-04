@@ -1,5 +1,6 @@
 import connection
 import threading
+import CommandHandler
 
 class ClientHandler:
     def __init__(this, conn):
@@ -12,9 +13,11 @@ class ClientHandler:
         
     def main_loop(this):
         try:
+            command_handler = CommandHandler.CommandHandler()
             while True:
                 print("Waiting for message")
-                print("Got message: ", this.conn.recv_one_string_message())
-                this.conn.send_one_string_message("ACK")
+                msg = this.conn.recv_one_string_message()
+                response = command_handler.handle_command(msg)
+                this.conn.send_one_string_message(response)
         except TypeError:
             print("Connection closed")

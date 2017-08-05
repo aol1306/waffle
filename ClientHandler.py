@@ -6,6 +6,7 @@ class ClientHandler:
     def __init__(self, conn):
         self.conn = conn
         self.state = "normal"
+        self.running = True
         self.send_hello_message()
         self.main_loop()
         
@@ -14,7 +15,7 @@ class ClientHandler:
         
     def main_loop(self):
         try:
-            while True:
+            while self.running:
                 print("Waiting for message")
                 msg = self.conn.recv_one_string_message()
                 response = self.create_response(msg)
@@ -32,7 +33,8 @@ class ClientHandler:
     def handle_normal_command(self, command):
         print("Handling normal command", command)
         if command == "exit":
-            exit()
+            self.running = False
+            return("ACK")
         if command == "shell":
             self.state = "shell"
             print("state: shell")

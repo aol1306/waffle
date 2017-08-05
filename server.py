@@ -5,7 +5,11 @@ def main_loop(conn):
         while True:
             msg = input("> ")
             conn.send_one_string_message(msg)
-            print(conn.recv_one_string_message())
+            recv = conn.recv_one_string_message() 
+            print(recv)
+            if msg == "exit":
+                conn.close()
+                break
     except:
         print("Connection closed")
         conn.close()

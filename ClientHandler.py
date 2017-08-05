@@ -5,7 +5,6 @@ import subprocess
 class ClientHandler:
     def __init__(self, conn):
         self.conn = conn
-        self.state = "normal"
         self.running = True
         self.send_hello_message()
         self.run()
@@ -25,29 +24,14 @@ class ClientHandler:
             print(e)
             
     def create_response(self, message):
-        if self.state == "normal":    
-            return self.handle_normal_command(message)
-        elif self.state == "shell":
-            return self.handle_shell_command(message)
+        return self.handle_command(message)
             
-    def handle_normal_command(self, command):
-        print("Handling normal command", command)
+    def handle_command(self, command):
+        print("Handling command", command)
         if command == "exit":
             self.running = False
             return("ACK")
         if command == "shell":
-            self.state = "shell"
-            print("state: shell")
-            return "Switched to shell"
+            return "Will spawn shell session, not implemented yet"
         else:
             return "Unknown command"
-            
-    def handle_shell_command(self, command):
-        print("Handling shell command", command)
-        if command == "exit":
-            self.state = "normal"
-            print("state: normal")
-            return "exit"
-        else:
-            result = str(subprocess.getoutput(command))
-            return result

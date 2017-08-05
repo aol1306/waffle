@@ -8,12 +8,12 @@ class ClientHandler:
         self.state = "normal"
         self.running = True
         self.send_hello_message()
-        self.main_loop()
+        self.run()
         
     def send_hello_message(self):
         self.conn.send_one_string_message("hello")
         
-    def main_loop(self):
+    def run(self):
         try:
             while self.running:
                 print("Waiting for message")

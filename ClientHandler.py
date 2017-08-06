@@ -48,6 +48,11 @@ class ClientHandler:
         except TypeError as e:
             print("Connection closed")
             print(e)
+        except ConnectionResetError as e:
+            print("Connection closed")
+            print(e)
+            self.conn.close()
+            self.running = False
             
     def create_response(self, message):
         return self.handle_command(message)

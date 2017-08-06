@@ -21,7 +21,8 @@ class ShellHandler(threading.Thread):
                 self.running = False
             if len(msg) > 0:
                 cmd = subprocess.Popen(msg[:], shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-                output = str(cmd.stdout.read() + cmd.stderr.read())
+                output = str(cmd.stdout.read() + cmd.stderr.read()).replace('\\n', '\n').replace('\\r', '\r')
+                print(output)
                 self.conn.send_one_string_message(output)
         
     def send_shell_hello_message(self):

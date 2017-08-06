@@ -8,7 +8,7 @@ class ServerHandler(threading.Thread):
     def __init__(self, conn, id):
         threading.Thread.__init__(self)
         print("Thread with id", id, "has been created")
-        print(len(commands), "sessions available")
+        print(len(commands)+1, "sessions available")
         self.id = id
         self.running = True
         self.conn = conn

@@ -44,7 +44,7 @@ class UI(threading.Thread):
         
     def run(self):
         while self.running:
-            print("Current session:", self.current_session)
+            time.sleep(0.2)
             cmd = input(str(self.current_session)+"> ")
             if cmd.split()[0] != "session":
                 commands[self.current_session] = cmd

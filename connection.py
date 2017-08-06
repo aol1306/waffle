@@ -21,7 +21,7 @@ def recvall(sock, count):
     buf = b''
     while count:
         newbuf = sock.recv(count)
-        if not newbuf: return None
+        if not newbuf: return buf
         buf += newbuf
         count -= len(newbuf)
     return buf

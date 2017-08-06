@@ -2,6 +2,13 @@ import connection
 import threading
 import subprocess
 
+class ShellHandler(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        
+    def run(self):
+        print("Shell start")
+
 class ClientHandler:
     def __init__(self, conn):
         self.conn = conn
@@ -32,6 +39,8 @@ class ClientHandler:
             self.running = False
             return("ACK")
         if command == "shell":
-            return "Will spawn shell session, not implemented yet"
+            shell = ShellHandler()
+            shell.start()
+            return "Started remote shell"
         else:
             return "Unknown command"

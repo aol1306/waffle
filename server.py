@@ -46,11 +46,18 @@ class UI(threading.Thread):
         while self.running:
             time.sleep(0.2)
             cmd = input(str(self.current_session)+"> ")
-            if cmd.split()[0] != "session":
-                commands[self.current_session] = cmd
-            else:
-                self.current_session = int(cmd.split()[1])
+            self.handle_cmd(cmd)
                 
+    def handle_cmd(self, cmd):
+        cmd_splitted = cmd.split()
+        if len(cmd_splitted) > 0 and cmd_splitted[0] == "session":
+            self.current_session = int(cmd_splitted[1])
+        else:
+            try:
+                commands[self.current_session] = cmd
+            except IndexError:
+                print("Invalid session", self.current_session)
+    
     def help(self):
         print("session [id] to change session")
             

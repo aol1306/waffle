@@ -48,3 +48,6 @@ class Connection:
         
     def close(self):
         self.sock.close()
+        
+    def get_raw_socket(self):
+        return self.sock

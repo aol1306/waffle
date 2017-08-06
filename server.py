@@ -74,7 +74,7 @@ while True:
     # start with listening for message
     conn = connection.Connection(clientsocket)
     # get hello message
-    conn.recv_one_string_message()
+    print("Conn type:",conn.recv_one_string_message())
     server_handler = ServerHandler(conn, session_counter)
     commands.append("")
     session_counter += 1

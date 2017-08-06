@@ -40,15 +40,19 @@ class UI(threading.Thread):
         threading.Thread.__init__(self)
         self.current_session = 0
         self.running = True
+        self.help()
         
     def run(self):
         while self.running:
             print("Current session:", self.current_session)
-            cmd = input("Enter command (session [id] to change session): ")
+            cmd = input(str(self.current_session)+"> ")
             if cmd.split()[0] != "session":
                 commands[self.current_session] = cmd
             else:
                 self.current_session = int(cmd.split()[1])
+                
+    def help(self):
+        print("session [id] to change session")
             
 sock = connection.server_factory(5555)
 session_counter = 0
